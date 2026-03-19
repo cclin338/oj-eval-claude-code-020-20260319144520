@@ -142,13 +142,13 @@ void *alloc_pages(int rank) {
         page_index = page - page_metadata;
         buddy_index = page_index + (block_size / 2);
 
-        // Add first half to lower rank
-        page->rank = target_rank - 1;
-        add_to_free_list(page, target_rank - 1);
-
-        // Add second half (buddy) to lower rank
+        // Add second half (buddy) to lower rank first
         page_metadata[buddy_index].rank = target_rank - 1;
         add_to_free_list(&page_metadata[buddy_index], target_rank - 1);
+
+        // Add first half to lower rank - this will be at head, allocated first
+        page->rank = target_rank - 1;
+        add_to_free_list(page, target_rank - 1);
 
         target_rank--;
     }
