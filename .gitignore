@@ -1,0 +1,8 @@
+CMakeFiles/
+CMakeCache.txt
+test
+debug_test
+test_debug
+test_phase8a
+test_output.txt
+check_test.py
